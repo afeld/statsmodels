@@ -23,14 +23,19 @@ are mentioned in the docstrings.
 
 Stats
 -----
-**Issues Closed**: TBD
+**Issues Closed**: 1
 
-**Pull Requests Merged**: TBD
+**Pull Requests Merged**: 2
 
 
 The Highlights
 ==============
-This is a maintenance release focusing on bug fixes and compatibility improvements.
+This patch release fixes an issue with recent SciPy releases (1.16+) that prevented 
+statsmodels from importing. It also addresses some small changes that improve future 
+compatibility.
+
+The main fix removes the use of the private ``scipy._lib._util._lazywhere`` function
+that was removed in SciPy 1.16.0, replacing it with equivalent functionality.
 
 
 What's new - an overview
@@ -38,23 +43,15 @@ What's new - an overview
 
 There are no new features in release 0.14.5.
 
-bug-wrong
----------
-
-A new issue label `type-bug-wrong` indicates bugs that cause that incorrect
-numbers are returned without warnings.
-(Regular bugs are mostly usability bugs or bugs that raise an exception for
-unsupported use cases.)
-`see tagged issues <https://github.com/statsmodels/statsmodels/issues?q=is%3Aissue+label%3Atype-bug-wrong+is%3Aclosed+milestone%3A0.14>`_
-
 
 Major Bugs Fixed
 ================
 
-See github issues for a list of bug fixes included in this release
+**SciPy 1.16+ Compatibility**
 
-- `Closed bugs <https://github.com/statsmodels/statsmodels/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Amerged+milestone%3A0.14+label%3Atype-bug>`_
-- `Closed bugs (wrong result) <https://github.com/statsmodels/statsmodels/pulls?q=is%3Apr+is%3Amerged+milestone%3A0.14+label%3Atype-bug-wrong>`_
+- Fixed ``ImportError: cannot import name '_lazywhere'`` that occurred when trying to 
+  import statsmodels with SciPy 1.16.0 or later. The fix removes dependency on the 
+  private SciPy function and implements equivalent functionality directly.
 
 
 Development summary and credits
@@ -63,10 +60,6 @@ Development summary and credits
 Besides receiving contributions for new and improved features and for bugfixes,
 important contributions to general maintenance for this release came from
 
-- Chad Fulton
-- Brock Mendel
-- Peter Quackenbush
-- Kerby Shedden
 - Kevin Sheppard
 
 and the general maintainer and code reviewer
@@ -82,4 +75,5 @@ Merged Pull Requests
 
 The following Pull Requests were merged since the last release:
 
-.. (Pull requests will be added when the actual release content is determined)
+- :pr:`9586`: MAINT: Remove lazywhere
+- :pr:`9591`: Rls 0 14 5 notes
